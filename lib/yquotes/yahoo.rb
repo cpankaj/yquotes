@@ -2,18 +2,28 @@ require 'open-uri'
 require 'csv'
 require 'Date'
 
+
 module YQuotes
 
 	QUOTE_ENDPOINT="https://ichart.finance.yahoo.com/table.csv?"
 	
 	class Yahoo
-		def self.fetch_csv(ticker, start_date, end_date, period)
+
+		# fetch_csv: fetch historical quotes in csv format
+		def fetch_csv(ticker, start_date=nil, end_date=nil, period='d')
 			url = QUOTE_ENDPOINT + build_params(ticker, start_date, end_date, period)
 			connection = open(url)
-			data = CSV.parse(connection.read)
+			data = CSV.parse(connection.read, :converters => :numeric)
+			raise "Yahoo.fetch_csv unable to fetch data" unless data.is_a? Array
+			return data
 		end
 
-		def self.build_params(ticker, start_date=nil, end_date=nil, period='d')
+		alias_method :get_csv, :fetch_csv
+		alias_method :get_data, :fetch_csv
+
+		private
+		# build_params: build parameters for get query
+		def build_params(ticker, start_date=nil, end_date=nil, period='d')
 
 			params = {
 				:s => URI.escape(ticker)
@@ -40,7 +50,8 @@ module YQuotes
 			"#{params.map  { |k,v|  "#{k}=#{v}" }.join("&")}"
 		end
 
-		def self.get_date(d)
+		# get_date: get date from String
+		def get_date(d)
 			return nil unless d
 			return d if d.is_a? Date
 
