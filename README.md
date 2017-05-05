@@ -21,7 +21,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+	client = YQuotes::Client.new
+
+	df = client.get_quote(ticker, start_date, end_date)
 
 ## Development
 
