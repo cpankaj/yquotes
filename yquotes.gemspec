@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["P Choudhary"]
   spec.email         = ["pankaj17n@outlook.com"]
 
-  spec.summary       = "Get historical quotes from Yahoo"
+  spec.summary       = "Get historical quotes from Yahoo Finance"
   spec.homepage      = "https://github.com/cpankaj/yquotes"
   spec.license       = "MIT"
 

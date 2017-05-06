@@ -1,6 +1,6 @@
 # YQuotes
 
-Get historical quotes from Yahoo.
+Get historical quotes from Yahoo Finance.
 
 
 ## Installation

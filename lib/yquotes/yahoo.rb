@@ -33,7 +33,7 @@ module YQuotes
 			start_date = get_date(start_date)
 			end_date = get_date(end_date)
 
-			if start_date and start_date.is_a? Date
+			if start_date
 				params[:a] = start_date.month - 1
 				params[:b] = start_date.day
 				params[:c] = start_date.year
