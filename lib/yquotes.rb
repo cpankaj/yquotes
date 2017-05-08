@@ -13,7 +13,19 @@ module YQuotes
 		end
 
 		# get_quote: returns Daru::DataFrame of the quote with volume and close
-		def get_quote(ticker, start_date=nil, end_date=nil, period='d')
+		def get_quote(ticker, args = {})
+
+			if args.is_a? Hash
+				start_date = args[:start_date] if args[:start_date]
+				start_date ||= args[:s] if args[:s]
+
+				end_date = args[:end_date] if args[:end_date]
+				end_date ||= args[:e] if args[:e]
+
+				period = args[:period] if args[:period]
+				period ||= args[:p] if args[:p]
+			end
+
 			csv = @yahoo_client.get_csv(ticker, start_date, end_date, period)
 			create_from_csv(csv)
 		end
@@ -38,14 +50,15 @@ module YQuotes
 			df = Daru::DataFrame.from_csv(file_path, :converters => :numeric)
 			File.delete(file_path) if File.exists?(file_path)
 
+			#sort from earlier to latest
+			df = df.sort ['Date']
+
 			# strip columns and create index
 			df.index = Daru::Index.new(df['Date'].to_a)
 			df = df['Volume', 'Adj Close']
 			df.rename_vectors 'Volume' => :volume, 'Adj Close' => :close
 
 			d = df.filter(:row) { |row| row[:volume] > 0}
-
-			return d
 		end
 
 	end

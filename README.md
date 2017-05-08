@@ -26,7 +26,11 @@ Or install it yourself as:
 
 	client = YQuotes::Client.new
 
-	df = client.get_quote(ticker, start_date, end_date)
+	df = client.get_quote(ticker, {
+		period: 'm',
+		start_date: '2017-01-02',
+		end_date: '2017-03-31'
+		})
 
 ## Development
 
