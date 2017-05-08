@@ -1,5 +1,6 @@
 # YQuotes
 
+[![Gem Version](https://badge.fury.io/rb/yquotes.svg)](https://badge.fury.io/rb/yquotes)
 Get historical quotes from Yahoo Finance.
 
 
