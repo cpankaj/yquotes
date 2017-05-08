@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'csv'
-require 'Date'
+require 'date'
 
 
 module YQuotes

@@ -1,6 +1,7 @@
 # YQuotes
 
 [![Gem Version](https://badge.fury.io/rb/yquotes.svg)](https://badge.fury.io/rb/yquotes)
+[![Build Status](https://travis-ci.org/cpankaj/yquotes.svg?branch=master)](https://travis-ci.org/cpankaj/yquotes)
 
 Get historical quotes from Yahoo Finance.
 
