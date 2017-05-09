@@ -51,10 +51,10 @@ module YQuotes
 			File.delete(file_path) if File.exists?(file_path)
 
 			#sort from earlier to latest
-			df = df.sort ['Date']
+			# df = df.sort ['Date']
 
 			# strip columns and create index
-			df.index = Daru::Index.new(df['Date'].to_a)
+			df.index = Daru::DateTimeIndex.new(df['Date'].to_a)
 			df = df['Volume', 'Adj Close']
 			df.rename_vectors 'Volume' => :volume, 'Adj Close' => :close
 
