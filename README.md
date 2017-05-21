@@ -16,10 +16,12 @@ gem 'yquotes'
 
 And then execute:
 
+	$ bundle config build.nokogiri --use-system-libraries
     $ bundle
 
 Or install it yourself as:
 
+	$ gem install nokogiri -- --use-system-libraries
     $ gem install yquotes
 
 ## Usage

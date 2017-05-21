@@ -25,4 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
 
   spec.add_dependency "daru", "~> 0.1.5"
+  spec.add_dependency "nokogiri", "~> 1.7.2"
+
 end
