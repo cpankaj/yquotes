@@ -14,7 +14,36 @@ module YQuotes
 
 		# Get cookie and crumb
 		def initialize
+			fetch_credentials
+		end
 
+		# fetch_csv: fetch historical quotes in csv format
+		def fetch_csv(ticker, start_date=nil, end_date=nil, period='d')
+			connection = nil
+
+			# retry 3-times in case it sends unauthorized
+			3.times do |i|
+				begin
+					url = build_url(ticker, start_date, end_date, period)
+					connection = open(url, 'Cookie' => @cookie)
+					break
+				rescue OpenURI::HTTPError => e
+					fetch_credentials
+				end
+			end
+
+			data = CSV.parse(connection.read, :converters => :numeric)
+
+			raise "Yahoo.fetch_csv unable to fetch data" unless data.is_a? Array
+			return data
+		end
+
+		alias_method :get_csv, :fetch_csv
+		alias_method :get_data, :fetch_csv
+
+		private
+
+		def fetch_credentials
 			# get cookie
 			page = open(COOKIE_URL)
 			@cookie = page.meta['set-cookie'].split('; ', 2).first
@@ -30,20 +59,6 @@ module YQuotes
 			end
 		end
 
-		# fetch_csv: fetch historical quotes in csv format
-		def fetch_csv(ticker, start_date=nil, end_date=nil, period='d')
-			url = build_url(ticker, start_date, end_date, period)
-			connection = open(url, 'Cookie' => @cookie)
-			data = CSV.parse(connection.read, :converters => :numeric)
-			raise "Yahoo.fetch_csv unable to fetch data" unless data.is_a? Array
-			return data
-		end
-
-		alias_method :get_csv, :fetch_csv
-		alias_method :get_data, :fetch_csv
-
-		private
-		
 		# build_params: build parameters for get query
 		def build_url(ticker, start_date=nil, end_date=nil, period='d')
 
