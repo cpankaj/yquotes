@@ -56,7 +56,7 @@ module YQuotes
 			# strip columns and create index
 			df.index = Daru::Index.new(df['Date'].to_a)
 			df.rename_vectors 'Volume' => :volume, 'Adj Close' => :adj_close, 'Open' => :open, 'Close' => :close, 'High' => :high, 'Low' => :low
-
+			df.delete_vector 'Date'
 			d = df.filter(:row) { |row| row[:volume] > 0}
 		end
 

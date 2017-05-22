@@ -37,7 +37,7 @@ Or install it yourself as:
 	OR
 
 	df = client.get_quote(ticker, {
-		p: 'm',
+		p: 'd',
 		s: '2017-01-02',
 		e: '2017-03-31'
 		})
