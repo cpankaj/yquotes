@@ -17,8 +17,9 @@ RSpec.describe YQuotes do
 	end
 
 	it "should return a valid dataframe" do
-		options = { s: '2012-01-01', e: '2017-01-31', p: 'd'}
+		options = { s: '2012-01-01', e: '2017-01-31', p: 'w'}
 		df = @client.get_quote('aapl', options)
+		expect(df.vectors.size).to eq(6)
 		expect(df[:open].class).to eq(Daru::Vector)
 		expect(df[:close].class).to eq(Daru::Vector)
 		expect(df[:high].class).to eq(Daru::Vector)
@@ -26,4 +27,5 @@ RSpec.describe YQuotes do
 		expect(df[:volume].class).to eq(Daru::Vector)
 		expect(df[:adj_close].class).to eq(Daru::Vector)
 	end
+
 end
