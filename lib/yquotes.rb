@@ -37,7 +37,7 @@ module YQuotes
 
       CSV.open(file_path, 'w') do |out|
         data.each do |row|
-          out << row
+          out << row unless row.include? 'null'
         end
       end
 
