@@ -50,7 +50,8 @@ module YQuotes
       df = df.sort ['Date']
 
       # strip columns and create index
-      df.rename_vectors 'Volume' => :volume, 'Adj Close' => :adj_close, 'Open' => :open, 'Close' => :close, 'High' => :high, 'Low' => :low
+      df.rename_vectors 'Volume' => :volume, 'Adj Close' => :adj_close, 'Open' => :open
+      df.rename_vectors 'Close' => :close, 'High' => :high, 'Low' => :low, 'Date' => :date
 
       d = df.filter(:row) { |row| row[:volume] > 0 }
     end
