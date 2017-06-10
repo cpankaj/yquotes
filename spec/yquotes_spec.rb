@@ -26,4 +26,12 @@ RSpec.describe YQuotes do
     expect(df[:volume].class).to eq(Daru::Vector)
     expect(df[:adj_close].class).to eq(Daru::Vector)
   end
+
+  it 'should not check strict volume' do
+    options = { s: '2017-01-01', e: '2017-01-31', p: 'd' }
+    client = YQuotes::Client.new(false)
+    df = client.get_quote('FFFHX', options)
+    p df
+  end
+
 end

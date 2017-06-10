@@ -6,8 +6,9 @@ require 'yquotes/yahoo'
 
 module YQuotes
   class Client
-    def initialize
+    def initialize(filter_zero_volume = true)
       @yahoo_client = Yahoo.new
+      @filter_zero_volume = filter_zero_volume
     end
 
     # get_quote: returns Daru::DataFrame of the quote with volume and close
@@ -53,7 +54,9 @@ module YQuotes
       df.rename_vectors 'Volume' => :volume, 'Adj Close' => :adj_close, 'Open' => :open
       df.rename_vectors 'Close' => :close, 'High' => :high, 'Low' => :low, 'Date' => :date
 
-      d = df.filter(:row) { |row| row[:volume] > 0 }
+      df = df.filter(:row) { |row| row[:volume] > 0 } if @filter_zero_volume
+
+      return df
     end
   end
 end
