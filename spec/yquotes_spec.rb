@@ -31,7 +31,7 @@ RSpec.describe YQuotes do
     options = { s: '2017-01-01', e: '2017-01-31', p: 'd' }
     client = YQuotes::Client.new(false)
     df = client.get_quote('FFFHX', options)
-    p df
+    expect(df.class).to eq(Daru::DataFrame)
   end
 
 end
