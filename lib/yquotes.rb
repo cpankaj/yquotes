@@ -44,7 +44,7 @@ module YQuotes
 
       df = nil
 
-      df = Daru::DataFrame.from_csv(file_path, converters: :numeric)
+      df = Daru::DataFrame.from_csv(file_path, converters: [:numeric])
       File.delete(file_path) if File.exist?(file_path)
 
       # sort from earlier to latest
